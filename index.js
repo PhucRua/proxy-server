@@ -9,6 +9,16 @@ app.use((req, res, next) => {
   next();
 });
 
+// Route cho trang chủ
+app.get('/', (req, res) => {
+  res.send('Welcome to Proxy Server');
+});
+
+// Route test
+app.get('/test', (req, res) => {
+  res.send('Server is working!');
+});
+
 // Tạo endpoint proxy
 app.get('/proxy', async (req, res) => {
   try {
@@ -16,7 +26,7 @@ app.get('/proxy', async (req, res) => {
     const data = await response.text();
     res.send(data);
   } catch (error) {
-    res.status(500).send('Lỗi proxy: ' + error.message);
+    res.status(500).send('Proxy error: ' + error.message);
   }
 });
 
@@ -25,5 +35,5 @@ module.exports = app;
 
 // Chạy server local
 if (process.env.NODE_ENV !== 'production') {
-  app.listen(3000, () => console.log('Server Node.js chạy trên cổng 3000'));
+  app.listen(3000, () => console.log('Server Node.js running on port 3000'));
 }
